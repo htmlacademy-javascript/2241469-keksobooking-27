@@ -4,7 +4,7 @@ const PRICE_VALUE = {
   max: 50000,
 };
 
-const SIMILAR_AD_COUNT = 10;
+const NUMBER_OF_SIMILAR_ADS = 10;
 
 const filterTypeField = document.querySelector('#housing-type');
 const filterPriceField = document.querySelector('#housing-price');
@@ -13,7 +13,6 @@ const filterGuestsField = document.querySelector('#housing-guests');
 const filterFeaturesFields = document.querySelectorAll('.map__checkbox');
 const features = document.querySelectorAll('.map__features input');
 
-/// сброс фильтра
 const resetFilter = () => {
   filterTypeField.value = DEFAULT_VALUE;
   filterPriceField.value = DEFAULT_VALUE;
@@ -25,7 +24,6 @@ const resetFilter = () => {
   });
 };
 
-/// фильтры
 const getFilterType = (ad) => filterTypeField.value === ad.offer.type || filterTypeField.value === DEFAULT_VALUE;
 
 const getFilterPrice = (ad) => {
@@ -56,7 +54,6 @@ const getFilterFeatures = (ad) => Array.from(features)
     return ad.offer.features.includes(feature.value);
   });
 
-/// функция со всеми функциями фильтрации
 
 const getFilterOffers = (ads) => {
 
@@ -72,14 +69,13 @@ const getFilterOffers = (ads) => {
     ) {
       filteredData.push(ad);
     }
-    if (filteredData.length === SIMILAR_AD_COUNT) {
+    if (filteredData.length === NUMBER_OF_SIMILAR_ADS) {
       break;
     }
   }
   return filteredData;
 };
 
-/// функция обработчик для всех полей фильтра
 
 const setChangeEventOnFilter = (cb) => {
 

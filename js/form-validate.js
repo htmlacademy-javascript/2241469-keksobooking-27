@@ -3,24 +3,6 @@ import {DEFAULT_AVATAR, previewPhoto, previewAvatar } from './pictures.js';
 import {resetMainMark} from './map.js';
 import {resetFilter} from './filter.js';
 
-const TITLE_MIN_LENGTH = 30;
-const TITLE_MAX_LENGTH = 100;
-const MAX_PRICE = 100000;
-
-const roomsOption = {
-  1 : ['1'],
-  2 : ['2', '1'],
-  3 : ['3', '2', '1'],
-  100 : ['0'],
-};
-
-const capacityOption = {
-  0 : ['100'],
-  1 : ['1'],
-  2 : ['1', '2'],
-  3 : ['3', '2', '1'],
-};
-
 const form = document.querySelector('.ad-form');
 const capacityField = form.querySelector('#capacity');
 const roomField = form.querySelector('#room_number');
@@ -30,6 +12,23 @@ const typeHousingField = form.querySelector('#type');
 const submitBtn = form.querySelector('.ad-form__submit');
 const sliderElement = document.querySelector('.ad-form__slider');
 
+const MIN_LENGTH_TITLE = 30;
+const MAX_LENGTH_TITLE = 100;
+const MAX_PRICE = 100000;
+
+const roomsLimits = {
+  1 : ['1'],
+  2 : ['2', '1'],
+  3 : ['3', '2', '1'],
+  100 : ['0'],
+};
+
+const capacityLimits = {
+  0 : ['100'],
+  1 : ['1'],
+  2 : ['1', '2'],
+  3 : ['3', '2', '1'],
+};
 
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
@@ -37,7 +36,7 @@ const pristine = new Pristine(form, {
   errorTextClass: 'ad-form__element--invalid',
 }, true);
 
-const typeofHouseOption = {
+const typeofHouseLimits = {
   'bungalow': '0',
   'flat' : '1000',
   'hotel' : '3000',
@@ -46,25 +45,25 @@ const typeofHouseOption = {
 };
 
 
-const validateCapasity = () => roomsOption[roomField.value].includes(capacityField.value);
-const validateTitle = (value) => value.length >= TITLE_MIN_LENGTH && value.length <= TITLE_MAX_LENGTH;
+const validateCapasity = () => roomsLimits[roomField.value].includes(capacityField.value);
+const validateTitle = (value) => value.length >= MIN_LENGTH_TITLE && value.length <= MAX_LENGTH_TITLE;
 const validateMaxPrice = (value) => value <= MAX_PRICE;
-const validateMinPrice = (value) => parseInt(value, 10) >= typeofHouseOption[typeHousingField.value];
+const validateMinPrice = (value) => parseInt(value, 10) >= typeofHouseLimits[typeHousingField.value];
 const onlyNumber = (value) => /^(0|-?[1-9]\d*)$/.test(value);
 
 
 const getCapacityErrorMessage = () =>
-  `Для указанного колличества гостей требуется ${capacityOption[capacityField.value].join(' или ')} комнат.`;
+  `Для указанного колличества гостей требуется ${capacityLimits[capacityField.value].join(' или ')} комнат.`;
 
 const getTitleErrorMessage = () =>
-  `Заголовок должен содержать от ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`;
+  `Заголовок должен содержать от ${MIN_LENGTH_TITLE} до ${MAX_LENGTH_TITLE} символов`;
 
 const getRoomsErrorMessage = () =>
-  `указанное колличество комнат вмещает ${roomsOption[roomField.value].join(' или ')} гостей.`;
+  `указанное колличество комнат вмещает ${roomsLimits[roomField.value].join(' или ')} гостей.`;
 
 const getMinPriceErrorMessage = () => {
   const typeHousing = form.querySelector('#type').value;
-  return `Минимальная цена для данного типа жилья ${typeofHouseOption[typeHousing]}`;
+  return `Минимальная цена для данного типа жилья ${typeofHouseLimits[typeHousing]}`;
 };
 
 pristine.addValidator(
@@ -131,8 +130,8 @@ noUiSlider.create(sliderElement, {
 });
 
 const setTypePrice = () => {
-  priceField.placeholder = typeofHouseOption[typeHousingField.value];
-  priceField.min = typeofHouseOption[typeHousingField.value];
+  priceField.placeholder = typeofHouseLimits[typeHousingField.value];
+  priceField.min = typeofHouseLimits[typeHousingField.value];
 };
 
 sliderElement.noUiSlider.on('update', () => {
@@ -188,8 +187,8 @@ const resetForm = () => {
   resetMainMark();
   previewPhoto.innerHTML = '';
   previewAvatar.src = DEFAULT_AVATAR;
-  priceField.placeholder = typeofHouseOption[typeHousingField.value];
-  sliderElement.noUiSlider.set(typeofHouseOption[typeHousingField.value]);
+  priceField.placeholder = typeofHouseLimits[typeHousingField.value];
+  sliderElement.noUiSlider.set(typeofHouseLimits[typeHousingField.value]);
 };
 
 resetBtn.addEventListener('click', (evt)=> {

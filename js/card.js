@@ -1,17 +1,16 @@
 const template = document.querySelector('#card').content;
 const popup = template.querySelector('.popup');
 
-const PHOTO_WIDTH = 45;
-const PHOTO_HEIGHT = 40;
-
-const TYPES_OF_HOUSING = {
+const TYPES_HOUSES = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
+  hotel: 'Отель',
   house: 'Дом',
   palace: 'Дворец',
-  hotel: 'Отель',
 };
 
+const WIDTH_PHOTO = 45;
+const HEIGHT_PHOTO = 40;
 
 const createFeatures = (features) => {
   const featuresFragment = document.createDocumentFragment();
@@ -31,8 +30,8 @@ const createPhotos = (photos) => {
     PhotoElement.classList.add('popup__photo');
     PhotoElement.src = photo;
     PhotoElement.alt = 'Фотография жилья';
-    PhotoElement.width = PHOTO_WIDTH;
-    PhotoElement.height = PHOTO_HEIGHT;
+    PhotoElement.width = WIDTH_PHOTO;
+    PhotoElement.height = HEIGHT_PHOTO;
     photosFragment.appendChild(PhotoElement);
   });
   return photosFragment;
@@ -44,47 +43,47 @@ const isAnything = (elem) => {
   }
 };
 
-const renderCard = (arr) => {
+const renderCard = (arg) => {
   const cardElement = popup.cloneNode(true);
 
   const cardAvatar = cardElement.querySelector('.popup__avatar');
-  cardAvatar.src = arr.author.avatar;
+  cardAvatar.src = arg.author.avatar;
   if(cardAvatar && cardAvatar.length === 0) {
     cardAvatar.classList.add('visually-hidden');
   }
 
   const cardAdress = cardElement.querySelector('.popup__text--address');
-  cardAdress.textContent = arr.offer.address;
+  cardAdress.textContent = arg.offer.address;
   isAnything(cardAdress);
 
   const cardTitle = cardElement.querySelector('.popup__title');
-  cardTitle.textContent = arr.offer.title;
+  cardTitle.textContent = arg.offer.title;
   isAnything(cardTitle);
 
   const cardPrice = cardElement.querySelector('.popup__text--price');
-  cardPrice.textContent = `${arr.offer.price} ₽/ночь`;
+  cardPrice.textContent = `${arg.offer.price} ₽/ночь`;
   isAnything(cardPrice);
 
   const cardType = cardElement.querySelector('.popup__type');
-  cardType.textContent = TYPES_OF_HOUSING[arr.offer.type];
+  cardType.textContent = TYPES_HOUSES[arg.offer.type];
   isAnything(cardType);
 
   const cardCapacity = cardElement.querySelector('.popup__text--capacity');
-  cardCapacity.textContent = `${arr.offer.rooms}  комнаты для ${arr.offer.guests} гостей`;
+  cardCapacity.textContent = `${arg.offer.rooms}  комнаты для ${arg.offer.guests} гостей`;
   isAnything(cardCapacity);
 
   const cardTime = cardElement.querySelector('.popup__text--time');
-  cardTime.textContent = `Заезд после ${arr.offer.checkin}, выезд до ${arr.offer.checkout}`;
+  cardTime.textContent = `Заезд после ${arg.offer.checkin}, выезд до ${arg.offer.checkout}`;
   isAnything(cardTime);
 
   const CardDesc = cardElement.querySelector('.popup__description');
-  CardDesc.textContent = arr.offer.description;
+  CardDesc.textContent = arg.offer.description;
   isAnything(CardDesc);
 
   const Cardfeatures = cardElement.querySelector('.popup__features');
   Cardfeatures.innerHTML = '';
-  if (arr.offer.features) {
-    const newFeatureElements = createFeatures(arr.offer.features);
+  if (arg.offer.features) {
+    const newFeatureElements = createFeatures(arg.offer.features);
     Cardfeatures.appendChild(newFeatureElements);
   } else {
     Cardfeatures.classList.add('visually-hidden');
@@ -92,8 +91,8 @@ const renderCard = (arr) => {
 
   const CardPhoto = cardElement.querySelector('.popup__photos');
   CardPhoto.innerHTML = '';
-  if (arr.offer.photos) {
-    const newPhotoElements = createPhotos(arr.offer.photos);
+  if (arg.offer.photos) {
+    const newPhotoElements = createPhotos(arg.offer.photos);
     CardPhoto.appendChild(newPhotoElements);
   } else {
     CardPhoto.classList.add('visually-hidden');

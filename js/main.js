@@ -10,19 +10,15 @@ import './pictures.js';
 
 formDisable();
 
-////загрузка карты
 setOnMapLoad(()=> {
   setOnMainPinMove(setAddress);
   setAddress(startCoordinate);
 });
 
-
 initMap(startCoordinate);
 
-/// отпрака данных
 setUserFormSubmit(showSuccess, showAlert);
 
-//получение данных и отриссовка меток с фильтрацией
 getData((offers) => {
   setAdPins(offers);
   formActive();
@@ -32,5 +28,5 @@ getData((offers) => {
     })
   );
 }, () => {
-  showError('Не удалось получить похожие объявления. Попробуй еще раз!');
+  showError('Не удалось получить объявления. Повторите попытку!');
 });

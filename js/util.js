@@ -1,7 +1,7 @@
-const TIMEOUT_FOR_DELAY = 500;
+const DELAY = 500;
 const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
 
-const debounce = (callback, timeoutDelay = TIMEOUT_FOR_DELAY) => {
+const debounce = (callback, timeoutDelay = DELAY) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
