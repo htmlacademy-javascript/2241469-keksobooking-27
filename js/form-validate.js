@@ -211,7 +211,7 @@ const setUserFormSubmit = (onSuccess, onFail) => {
           unblockSubmitButton();
         },
         () => {
-          onFail('Не удалось отправить форму. Попробуйте ещё раз');
+          onFail('Не удалось отправить форму. Повторите попытку');
           unblockSubmitButton();
         },
         new FormData(evt.target),

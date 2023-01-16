@@ -26,13 +26,13 @@ const createPhotos = (photos) => {
   const photosFragment = document.createDocumentFragment();
 
   photos.forEach((photo) => {
-    const PhotoElement = document.createElement('img');
-    PhotoElement.classList.add('popup__photo');
-    PhotoElement.src = photo;
-    PhotoElement.alt = 'Фотография жилья';
-    PhotoElement.width = WIDTH_PHOTO;
-    PhotoElement.height = HEIGHT_PHOTO;
-    photosFragment.appendChild(PhotoElement);
+    const photoObject = document.createElement('img');
+    photoObject.classList.add('popup__photo');
+    photoObject.src = photo;
+    photoObject.alt = 'Фотография жилья';
+    photoObject.width = WIDTH_PHOTO;
+    photoObject.height = HEIGHT_PHOTO;
+    photosFragment.appendChild(photoObject);
   });
   return photosFragment;
 };
@@ -76,26 +76,26 @@ const renderCard = (arg) => {
   cardTime.textContent = `Заезд после ${arg.offer.checkin}, выезд до ${arg.offer.checkout}`;
   isAnything(cardTime);
 
-  const CardDesc = cardElement.querySelector('.popup__description');
-  CardDesc.textContent = arg.offer.description;
-  isAnything(CardDesc);
+  const cardDesc = cardElement.querySelector('.popup__description');
+  cardDesc.textContent = arg.offer.description;
+  isAnything(cardDesc);
 
-  const Cardfeatures = cardElement.querySelector('.popup__features');
-  Cardfeatures.innerHTML = '';
+  const cardfeatures = cardElement.querySelector('.popup__features');
+  cardfeatures.innerHTML = '';
   if (arg.offer.features) {
     const newFeatureElements = createFeatures(arg.offer.features);
-    Cardfeatures.appendChild(newFeatureElements);
+    cardfeatures.appendChild(newFeatureElements);
   } else {
-    Cardfeatures.classList.add('visually-hidden');
+    cardfeatures.classList.add('visually-hidden');
   }
 
-  const CardPhoto = cardElement.querySelector('.popup__photos');
-  CardPhoto.innerHTML = '';
+  const cardPhoto = cardElement.querySelector('.popup__photos');
+  cardPhoto.innerHTML = '';
   if (arg.offer.photos) {
     const newPhotoElements = createPhotos(arg.offer.photos);
-    CardPhoto.appendChild(newPhotoElements);
+    cardPhoto.appendChild(newPhotoElements);
   } else {
-    CardPhoto.classList.add('visually-hidden');
+    cardPhoto.classList.add('visually-hidden');
   }
 
   return cardElement;
