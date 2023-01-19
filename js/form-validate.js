@@ -11,6 +11,7 @@ const priceField = form.querySelector('#price');
 const typeHousingField = form.querySelector('#type');
 const submitBtn = form.querySelector('.ad-form__submit');
 const sliderElement = document.querySelector('.ad-form__slider');
+const adress = form.querySelector('#address');
 
 const MIN_LENGTH_TITLE = 30;
 const MAX_LENGTH_TITLE = 100;
@@ -204,6 +205,7 @@ const setUserFormSubmit = (onSuccess, onFail) => {
 
     const isValid = pristine.validate();
     if (isValid) {
+      adress.disabled = false;
       blockSubmitButton();
       sendData(
         () => {
@@ -216,6 +218,7 @@ const setUserFormSubmit = (onSuccess, onFail) => {
         },
         new FormData(evt.target),
       );
+      adress.disabled = true;
     }
   });
 };
