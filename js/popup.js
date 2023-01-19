@@ -38,32 +38,35 @@ const showSuccess = () => {
 };
 
 const showError = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '0';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
+  const messContainer = document.createElement('div');
+  messContainer.style.zIndex = '100';
+  messContainer.style.position = 'absolute';
+  messContainer.style.left = '0';
+  messContainer.style.top = '0';
+  messContainer.style.right = '0';
+  messContainer.style.padding = '10px 3px';
+  messContainer.style.fontSize = '30px';
+  messContainer.style.textAlign = 'center';
+  messContainer.style.backgroundColor = 'red';
 
-  alertContainer.textContent = message;
+  messContainer.textContent = message;
 
-  document.body.append(alertContainer);
+  document.body.append(messContainer);
 
   document.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
+
       alertContainer.remove();
       errorPopup.remove();
       successPopup.remove();
+      messContainer.remove();
+
     }
   });
 
   document.addEventListener('click', () => {
-    alertContainer.remove();
+    messContainer.remove();
   });
 
 };

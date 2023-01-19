@@ -1,6 +1,6 @@
 import './form-validate.js';
 
-const NIGITS_AFTER_POINT = 5;
+const DIGITS_AFTER_POINT = 5;
 const adForm = document.querySelector('.ad-form');
 const mapFilterForm = document.querySelector('.map__filters');
 const fieldsets = adForm.querySelectorAll('fieldset');
@@ -38,7 +38,7 @@ const enableForm = () => {
 
 
 const setAddress = (coordinates) => {
-  adress.value = `${coordinates.lat.toFixed(NIGITS_AFTER_POINT)}, ${coordinates.lng.toFixed(NIGITS_AFTER_POINT)}`;
+  adress.value = `${coordinates.lat.toFixed(DIGITS_AFTER_POINT)}, ${coordinates.lng.toFixed(DIGITS_AFTER_POINT)}`;
 };
 
 export {enableForm, disableForm, setAddress};
