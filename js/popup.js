@@ -1,4 +1,3 @@
-import {isEscEvent} from './util.js';
 import {resetFilter} from './filter.js';
 
 const errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
