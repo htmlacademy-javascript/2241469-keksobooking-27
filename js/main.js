@@ -1,4 +1,4 @@
-import {formActive, formDisable, setAddress} from'./form.js';
+import {enableForm, disableForm, setAddress} from'./form.js';
 import {initMap, setOnMapLoad, setOnMainPinMove, startCoordinate} from './map.js';
 import {setAdPins} from './map.js';
 import {getData} from './api.js';
@@ -8,7 +8,7 @@ import {setChangeEventOnFilter, getFilterOffers } from './filter.js';
 import {debounce} from './util.js';
 import './pictures.js';
 
-formDisable();
+disableForm();
 
 setOnMapLoad(()=> {
   setOnMainPinMove(setAddress);
@@ -21,7 +21,7 @@ setUserFormSubmit(showSuccess, showAlert);
 
 getData((offers) => {
   setAdPins(offers);
-  formActive();
+  enableForm();
   setChangeEventOnFilter(
     debounce(() => {
       setAdPins(getFilterOffers(offers));

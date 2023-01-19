@@ -11,6 +11,7 @@ const priceField = form.querySelector('#price');
 const typeHousingField = form.querySelector('#type');
 const submitBtn = form.querySelector('.ad-form__submit');
 const sliderElement = document.querySelector('.ad-form__slider');
+const adress = form.querySelector('#address');
 
 const MIN_LENGTH_TITLE = 30;
 const MAX_LENGTH_TITLE = 100;
@@ -49,7 +50,7 @@ const validateCapasity = () => roomsLimits[roomField.value].includes(capacityFie
 const validateTitle = (value) => value.length >= MIN_LENGTH_TITLE && value.length <= MAX_LENGTH_TITLE;
 const validateMaxPrice = (value) => value <= MAX_PRICE;
 const validateMinPrice = (value) => parseInt(value, 10) >= typeofHouseLimits[typeHousingField.value];
-const onlyNumber = (value) => /^(0|-?[1-9]\d*)$/.test(value);
+const validateonlyNumber = (value) => /^(0|-?[1-9]\d*)$/.test(value);
 
 
 const getCapacityErrorMessage = () =>
@@ -98,7 +99,7 @@ pristine.addValidator(
 
 pristine.addValidator(
   priceField,
-  onlyNumber,
+  validateonlyNumber,
   'Некорректное значение');
 
 
@@ -147,16 +148,16 @@ typeHousingField.addEventListener('change', ()=> {
 const timeIn = form.querySelector('#timein');
 const timeOut = form.querySelector('#timeout');
 
-const getTimeInChange = () => {
+const onTimeOutChange = () => {
   timeIn.value = timeOut.value;
 };
 
-const getTimeOutChange = () => {
+const onTimeInChange = () => {
   timeOut.value = timeIn.value;
 };
 
-timeIn.addEventListener('change', getTimeOutChange);
-timeOut.addEventListener('change', getTimeInChange);
+timeIn.addEventListener('change', onTimeInChange);
+timeOut.addEventListener('change', onTimeOutChange);
 
 
 capacityField.addEventListener('change', () => {
@@ -204,6 +205,7 @@ const setUserFormSubmit = (onSuccess, onFail) => {
 
     const isValid = pristine.validate();
     if (isValid) {
+      adress.disabled = false;
       blockSubmitButton();
       sendData(
         () => {
@@ -216,6 +218,7 @@ const setUserFormSubmit = (onSuccess, onFail) => {
         },
         new FormData(evt.target),
       );
+      adress.disabled = true;
     }
   });
 };

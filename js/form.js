@@ -7,13 +7,13 @@ const fieldsets = adForm.querySelectorAll('fieldset');
 const mapfieldsets = mapFilterForm.querySelectorAll('fieldset');
 const adress = adForm.querySelector('#address');
 
-const adressDisable = () =>{
+const disableAdress = () =>{
   adress.disabled = true;
 };
 
 
-const formDisable = () => {
-  adressDisable();
+const disableForm = () => {
+  disableAdress();
   adForm.classList.add('ad-form--disabled');
   fieldsets.forEach((elem)=>{
     elem.disabled = true;
@@ -25,7 +25,7 @@ const formDisable = () => {
 };
 
 
-const formActive = () => {
+const enableForm = () => {
   adForm.classList.remove('ad-form--disabled');
   fieldsets.forEach((elem)=>{
     elem.disabled = false;
@@ -41,4 +41,4 @@ const setAddress = (coordinates) => {
   adress.value = `${coordinates.lat.toFixed(DIGITS_AFTER_POINT)}, ${coordinates.lng.toFixed(DIGITS_AFTER_POINT)}`;
 };
 
-export {formActive, formDisable, setAddress};
+export {enableForm, disableForm, setAddress};

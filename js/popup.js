@@ -1,83 +1,55 @@
 import {isEscEvent} from './util.js';
 import {resetFilter} from './filter.js';
 
-const showAlert = (message) => {
+const errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const successPopup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const messContainer = document.createElement('div');
 
-  const errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const showAlert = (message) => {
+  document.addEventListener('keydown', onEscKeyDown);
+  document.addEventListener('click', removePopups);
   const errorPopupMessage = errorPopup.querySelector('.error__message');
   errorPopupMessage.textContent = message;
 
   const closeErrorButton = errorPopup.querySelector('.error__button');
-
   document.body.appendChild(errorPopup);
 
   closeErrorButton.addEventListener('click', () => {
     errorPopup.remove();
   });
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      errorPopup.remove();
-    }
-  });
-
-  document.addEventListener('click', () => {
-    errorPopup.remove();
-  });
-
 };
 
+
+function onEscKeyDown(evt) {
+  if(evt.key === 'Escape' ){
+    evt.preventDefault();
+    removePopups();
+  }
+}
+
+function removePopups(){
+  errorPopup.remove();
+  successPopup.remove();
+  messContainer.remove();
+  document.removeEventListener('keydown', onEscKeyDown);
+  document.removeEventListener('click', removePopups);
+}
+
+
 const showSuccess = () => {
-
-  const successPopup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-
+  document.addEventListener('keydown', onEscKeyDown);
+  document.addEventListener('click', removePopups);
   document.body.appendChild(successPopup);
-
   document.querySelector('.ad-form').reset();
   resetFilter();
-
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      successPopup.remove();
-    }
-  });
-
-  document.addEventListener('click', () => {
-    successPopup.remove();
-  });
-
 };
 
 const showError = (message) => {
-  const messContainer = document.createElement('div');
-  messContainer.style.zIndex = '100';
-  messContainer.style.position = 'absolute';
-  messContainer.style.left = '0';
-  messContainer.style.top = '0';
-  messContainer.style.right = '0';
-  messContainer.style.padding = '10px 3px';
-  messContainer.style.fontSize = '30px';
-  messContainer.style.textAlign = 'center';
-  messContainer.style.backgroundColor = 'red';
-
+  document.addEventListener('keydown', onEscKeyDown);
+  document.addEventListener('click', removePopups);
+  messContainer.classList.add('mystyle');
   messContainer.textContent = message;
-
   document.body.append(messContainer);
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      messContainer.remove();
-    }
-  });
-
-  document.addEventListener('click', () => {
-    messContainer.remove();
-  });
-
 };
 
 export {showAlert, showSuccess, showError};
