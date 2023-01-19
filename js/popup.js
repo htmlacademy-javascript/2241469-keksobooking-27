@@ -15,12 +15,6 @@ const showAlert = (message) => {
     errorPopup.remove();
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      errorPopup.remove();
-    }
-  });
 
   document.addEventListener('click', () => {
     errorPopup.remove();
@@ -36,14 +30,6 @@ const showSuccess = () => {
 
   document.querySelector('.ad-form').reset();
   resetFilter();
-
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      successPopup.remove();
-    }
-  });
 
   document.addEventListener('click', () => {
     successPopup.remove();
@@ -71,6 +57,8 @@ const showError = (message) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       alertContainer.remove();
+      errorPopup.remove();
+      successPopup.remove();
     }
   });
 
